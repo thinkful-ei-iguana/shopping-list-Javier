@@ -1,3 +1,5 @@
+'use strict';
+
 const store = {
   items: [
     { id: cuid(), name: 'apples', checked: false },
@@ -5,8 +7,25 @@ const store = {
     { id: cuid(), name: 'milk', checked: true },
     { id: cuid(), name: 'bread', checked: false }
   ],
-  hideCheckedItems: false
+  hideCheckedItems: false,
+  updatedItem: false,
 };
+
+const handleItemTitleClick = function(){
+  $('.js-shopping-list').on('click','.shopping-item', event => {
+    console.log('clicked');
+    const idNum = getItemIdFromElement(event.currentTarget);
+    checkTitleId(idNum);
+  });
+};
+
+const checkTitleId = function(id){
+  const titleId = store.items.find(title => title.id === id,console.log(id));
+  //console.log(titleId);
+
+};
+
+
 
 const generateItemElement = function (item) {
   let itemTitle = `<span class='shopping-item shopping-item__checked'>${item.name}</span>`;
@@ -50,7 +69,10 @@ const render = function () {
   if (store.hideCheckedItems) {
     items = items.filter(item => !item.checked);
   }
-
+  //my code
+  if(store.updatedItem){
+    items = items.filter(item => !item.name);
+  }
   /**
    * At this point, all filtering work has been 
    * done (or not done, if that's the current settings), 
@@ -77,7 +99,7 @@ const handleNewItemSubmit = function () {
 };
 
 const toggleCheckedForListItem = function (id) {
-  const foundItem = store.items.find(item => item.id === id);
+  const foundItem = store.items.find(item => item.id === id,console.log(id));
   foundItem.checked = !foundItem.checked;
 };
 
@@ -160,6 +182,7 @@ const handleShoppingList = function () {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleToggleFilterClick();
+  handleItemTitleClick();
 };
 
 // when the page loads, call `handleShoppingList`
