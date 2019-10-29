@@ -10,13 +10,21 @@ const store = {
   hideCheckedItems: false,
 };
 
+const titleId = function(){
+  $('.js-shopping-list').on('click', '.shopping-item', event => {
+    const id = getItemIdFromElement(event.currentTarget);
+    //console.log(id);
 
+    onClick(id);
+  });
+};
 
-const onClick = function(){
+const onClick = function(id){
   $('.wrapper').addClass('hide');
   $('.shopping-item').on('click',function(){
-    
-    $('.wrapper').removeClass('hide');
+    console.log('clicked');
+
+    $('.hide').removeClass();
     
 
     const handleChangeItem = function() {
@@ -39,7 +47,7 @@ const onClick = function(){
 
   });
 
-
+  
 };
 
 
